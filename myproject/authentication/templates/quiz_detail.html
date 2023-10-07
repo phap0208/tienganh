@@ -1,0 +1,10 @@
+
+
+{% block content %}
+    <h1>{{ lesson.title }}</h1>
+    <div class="ckeditor-content" style="border: 1px solid #ccc; padding: 10px;">
+        {{ quiz.questions | safe }}
+    </div>
+
+    <a href="{% url 'home' %}">Về trang chủ</a>
+{% endblock %}

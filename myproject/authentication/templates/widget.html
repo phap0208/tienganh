@@ -1,0 +1,7 @@
+{% load static %}
+
+<textarea {{ widget.attrs }}></textarea>
+
+<script>
+    CKEDITOR.replace('{{ widget.id }}', {{ config|safe }});
+</script>

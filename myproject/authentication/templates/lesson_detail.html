@@ -1,0 +1,111 @@
+<!--<!DOCTYPE html>-->
+<!--<html>-->
+<!--<head>-->
+<!--    <title>bài học </title>-->
+<!--<style>-->
+
+<!--     nav {-->
+<!--            background-color: #007bff;-->
+<!--            color: white;-->
+<!--            padding: 10px;-->
+<!--        }-->
+
+<!--        nav a {-->
+<!--            color: white;-->
+<!--            text-decoration: none;-->
+<!--            margin-right: 20px;-->
+<!--        }-->
+
+<!--</style>-->
+<!--</head>-->
+<!--<body>-->
+<!--<nav>-->
+<!--    <a href="{% url 'home' %}">Trang chủ</a>-->
+<!--    <a href="#">Kiểm tra </a>-->
+<!--    {% if user.is_authenticated %}-->
+<!--            <span>Xin chào, {{ user.username }}!</span>-->
+<!--            <a href="{% url 'logout' %}">Đăng xuất</a>-->
+<!--        {% else %}-->
+<!--            <a href="{% url 'login' %}">Đăng nhập</a>-->
+<!--            <a href="{% url 'signup' %}">Đăng ký</a>-->
+<!--        {% endif %}-->
+
+<!--</nav>-->
+<!--{% block content %}-->
+<!--    <h1>{{ lesson.title }}</h1>-->
+<!--    <div class="ckeditor-content" style="border: 1px solid #ccc; padding: 10px;">-->
+<!--        {{ lesson.content | safe }}-->
+<!--    </div>-->
+
+<!--{% endblock %}-->
+
+
+<!--</body>-->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{ lesson.title }}</title>
+    <style>
+        nav {
+            background-color: #007bff;
+            color: white;
+            padding: 10px;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin-right: 20px;
+        }
+         footer {
+    background-color: #007bff;
+    color: white;
+    padding: 10px;
+    text-align: center;
+    position: fixed; /* Sử dụng 'fixed' để giữ footer ở vị trí cố định trên dưới cùng */
+    bottom: 0;
+    width: 100%;
+}
+    </style>
+</head>
+<body>
+<nav>
+    <a href="{% url 'home' %}">Trang chủ</a>
+    <a href="#">Kiểm tra</a>
+    {% if user.is_authenticated %}
+        <span>Xin chào, {{ user.username }}!</span>
+        <a href="{% url 'logout' %}">Đăng xuất</a>
+    {% else %}
+        <a href="{% url 'login' %}">Đăng nhập</a>
+        <a href="{% url 'signup' %}">Đăng ký</a>
+    {% endif %}
+    <a href="{% url 'course_lessons' course.id %}">Trở lại danh sách bài học</a>
+</nav>
+<!-- Đoạn code sau đây không sử dụng block content nữa -->
+<!-- Trở lại danh sách bài học -->
+
+
+
+<!-- Liên kết đến bài học trước (nếu có) -->
+{% if previous_lesson %}
+    <a href="{% url 'lesson_detail' lesson_id=previous_lesson.id %}">Bài học trước</a>
+{% endif %}
+
+<h1>{{ lesson.title }}</h1>
+<div class="ckeditor-content" style="border: 1px solid #ccc; padding: 10px;">
+    {{ lesson.content | safe }}
+</div>
+
+<!-- Liên kết đến bài học tiếp theo (nếu có) -->
+{% if next_lesson %}
+    <a href="{% url 'lesson_detail' lesson_id=next_lesson.id %}">Bài học tiếp theo</a>
+{% endif %}
+
+<div style="height: 100px;"></div>
+<footer>
+        <!-- Phần footer -->
+        <p>&copy; 2023 phap - Bản quyền thuộc về chúng tôi.</p>
+    </footer>
+</body>
+</html>

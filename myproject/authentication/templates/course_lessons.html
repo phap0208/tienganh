@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{ course.title }} - Danh sách bài học</title>
+    <style>
+     nav {
+            background-color: #007bff;
+            color: white;
+            padding: 10px;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin-right: 20px;
+        }
+        .course-lessons {
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+            padding: 20px;
+            margin: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .lesson-button {
+             background-color: #007BFF;
+            color: white;
+            text-decoration: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+        footer {
+    background-color: #007bff;
+    color: white;
+    padding: 10px;
+    text-align: center;
+    position: fixed; /* Sử dụng 'fixed' để giữ footer ở vị trí cố định trên dưới cùng */
+    bottom: 0;
+    width: 100%;
+}
+
+    .back-home-button{
+    background-color: #007BFF;
+            color: white;
+            text-decoration: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+    }
+    </style>
+</head>
+<body>
+<nav>
+    <a href="{% url 'home' %}">Trang chủ</a>
+    {% if user.is_authenticated %}
+            <span>Xin chào, {{ user.username }}!</span>
+            <a href="{% url 'logout' %}">Đăng xuất</a>
+        {% else %}
+            <a href="{% url 'login' %}">Đăng nhập</a>
+            <a href="{% url 'signup' %}">Đăng ký</a>
+        {% endif %}
+</nav>
+    <h1>{{ course.title }} </h1>
+    <p>{{ course.description }}</p>
+
+    <h2>Danh sách bài học:</h2>
+    <ul>
+    {% for lesson in lessons %}
+    <section class="course-lessons">
+        <div>
+            <h2>{{ lesson.title }}</h2>
+        </div>
+        <div>
+            <button class="lesson-button"><a href="{% url 'lesson_detail' lesson.id %}">Bắt đầu học</a></button>
+        </div>
+    </section>
+    {% endfor %}
+</ul>
+
+
+<div style="height: 100px;"></div>
+<footer>
+        <!-- Phần footer -->
+        <p>&copy; 2023 phap - Bản quyền thuộc về chúng tôi.</p>
+    </footer>
+
+</body>
+</html>
